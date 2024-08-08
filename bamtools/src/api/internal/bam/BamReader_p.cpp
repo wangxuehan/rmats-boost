@@ -218,6 +218,25 @@ int BamReaderPrivate::GetReferenceID(const string& refName) const {
     else return index;
 }
 
+unordered_map<int, string> BamReaderPrivate::GetReferenceID2(const string& CHR) const {
+
+    unordered_map<int, string> result;
+    RefVector::const_iterator refIter = m_references.begin();
+    RefVector::const_iterator refEnd  = m_references.end();
+    int count = 0;
+    for ( ; refIter != refEnd; ++refIter) {
+        // refNames.push_back( (*refIter).RefName );
+        if (refIter->RefName.find(CHR) != 0) {
+            result[count] = CHR + refIter->RefName;
+        }
+        else {
+            result[count] = refIter->RefName;
+        }
+        ++count;
+    }
+    return result;
+}
+
 bool BamReaderPrivate::HasIndex(void) const {
     return m_randomAccessController.HasIndex();
 }

@@ -3,6 +3,7 @@ from libcpp.pair cimport pair
 from libcpp.string cimport string
 from libcpp.vector cimport vector
 from libc.stdint cimport *
+from libcpp.unordered_map cimport unordered_map
 
 
 cdef extern from 'api/BamConstants.h' namespace 'BamTools::Constants' nogil:
@@ -127,6 +128,7 @@ cdef extern from 'api/BamReader.h' namespace 'BamTools' nogil:
         int GetReferenceCount()
         const RefVector& GetReferenceData()
         int GetReferenceID(const string& refName)
+        unordered_map[int,string] GetReferenceID2(const string& CHR)
 
         cbool HasIndex()
         cbool OpenIndex(const string& indexFilename)

@@ -208,6 +208,10 @@ int BamReader::GetReferenceID(const std::string& refName) const {
     return d->GetReferenceID(refName);
 }
 
+unordered_map<int, std::string> BamReader::GetReferenceID2(const std::string& CHR) const {
+    return d->GetReferenceID2(CHR);
+}
+
 /*! \fn bool BamReader::HasIndex(void) const
     \brief Returns \c true if index data is available.
 */

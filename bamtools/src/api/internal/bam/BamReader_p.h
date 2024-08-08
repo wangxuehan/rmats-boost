@@ -61,6 +61,7 @@ class BamReaderPrivate {
         int GetReferenceCount(void) const;
         const RefVector& GetReferenceData(void) const;
         int GetReferenceID(const std::string& refName) const;
+        std::unordered_map<int, std::string> GetReferenceID2(const std::string& CHR) const;
 
         // index operations
         bool CreateIndex(const BamIndex::IndexType& type);

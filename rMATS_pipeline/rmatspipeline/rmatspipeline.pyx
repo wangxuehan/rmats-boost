@@ -771,6 +771,7 @@ cdef void parse_bam(long fidx, string bam,
         Transcript tx, trans
         Tetrad tetrad
         string bref_name
+        # cmap[int,string] refid2str
         unordered_map[int,string] refid2str
         int minAnchor, ilen = 0
         string multiread
@@ -793,12 +794,14 @@ cdef void parse_bam(long fidx, string bam,
         return
 
     refv = br.GetReferenceData()
-    for i in range(refv.size()):
-        # TODO what if chr[0:3] != 'chr' ?
-        if refv[i].RefName.substr(0,3).compare(CHR) != 0:
-            refid2str[br.GetReferenceID(refv[i].RefName)] = CHR + refv[i].RefName
-        else:
-            refid2str[br.GetReferenceID(refv[i].RefName)] = refv[i].RefName
+    with gil:
+        refid2str = br.GetReferenceID2(CHR)
+    # for i in range(refv.size()):
+    #     # TODO what if chr[0:3] != 'chr' ?
+    #     if refv[i].RefName.substr(0,3).compare(CHR) != 0:
+    #         refid2str[br.GetReferenceID(refv[i].RefName)] = CHR + refv[i].RefName
+    #     else:
+    #         refid2str[br.GetReferenceID(refv[i].RefName)] = refv[i].RefName
 
     while br.GetNextAlignment(bread):
         drop_clipping_info(bread, &cigar_data_after_clipping, &amount_clipped,

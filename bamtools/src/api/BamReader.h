@@ -15,6 +15,7 @@
 #include "api/BamIndex.h"
 #include "api/SamHeader.h"
 #include <string>
+#include <unordered_map>
 
 namespace BamTools {
   
@@ -86,6 +87,7 @@ class API_EXPORT BamReader {
         const RefVector& GetReferenceData(void) const;
         // returns the ID of the reference with this name
         int GetReferenceID(const std::string& refName) const;
+        std::unordered_map<int, std::string> GetReferenceID2(const std::string& CHR) const;
 
         // ----------------------
         // BAM index operations
